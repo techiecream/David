@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" type= "text/css" href = "static/style.css" media= "screen"/>
+
+	<title>Upload CSV File</title>
+	</head>
+<body>
+<h1>SALES DATA ANALYSIS SYSTEM</h1>
+<table>
+<tr>
+<td><a href="/">Home</a></td>
+
+<td><a href="/liproducts">View Products</a></td>
+</tr>
+</table>
+<form method="POST" action="/uploader" enctype="multipart/form-data">
+  <h1>Upload CSV File</h1>
+  <label for="file">Upload CSV file:</label>
+  <input type="file" id="file" name="file">
+  <input type="submit" value="Upload">
+</form>
+	
+	
+	
+</body>
+</html>

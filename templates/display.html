@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Analysis Results</title>
+	<link rel = "stylesheet" type= "text/css" href = "static/style.css" media= "screen"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>SALES DATA ANALYSIS SYSTEM</h1>
+<table>
+<tr>
+<td><a href="/">Home</a></td>
+<td><a href="/upload">Upload CSV File</a>
+<td><a href="/liproducts">View Products</a></td>
+</tr>
+</table>
+	<h1>Data Analysis Results</h1>
+<!--	<table class="data">
+		<thead>
+			<tr>
+				{% for column in columns %}
+					<th>{{ column }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in data %}
+				<tr>
+					{% for value in row %}
+						<td>{{ value }}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>-->
+	<h2>Total Sales by Month</h2>
+<img src="{{ bar_chart_path }}" alt="Total Sales by Month">
+
+<h2>Average Sales by Category</h2>
+<img src="{{ pie_chart_path }}" alt="Average Sales by Category">
+
+</body>
+</html>

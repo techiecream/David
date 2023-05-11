@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel = "stylesheet" type= "text/css" href = "static/style.css" media= "screen"/>
+
+    <title>Product List</title>
+	
+  </head>
+  <body>
+<h1>SALES DATA ANALYSIS SYSTEM</h1>
+<table>
+<tr>
+<td><a href="/">Home</a></td>
+<td><a href="/upload">Upload CSV File</a>
+
+</tr>
+</table>
+    <h1>Product List</h1>
+    <table>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Product Category</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Purchase Date</th>
+      </tr>
+      {% for product in product_list %}
+        <tr>
+          <td>{{ product.product_id }}</td>
+          <td>{{ product.product_name }}</td>
+          <td>{{ product.product_category }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.unit_price }}</td>
+          <td>{{ product.purchase_date }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
