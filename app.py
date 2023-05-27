@@ -37,35 +37,13 @@ def upload():
         # Get the uploaded file
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-                   
             uploaded_file.save(uploaded_file.filename)
-            print "File " + uploaded_file.filename + " uploaded successfully"
+            print("File " + uploaded_file.filename + " uploaded successfully")
 
             # Load the CSV file into a Pandas DataFrame
-            df = pd.read_csv(uploaded_file.filename,encoding='utf-8')          
+            df = pd.read_csv(uploaded_file.filename, encoding='utf-8')
 
-            # Clean the data by removing non-ascii characters, missing values, duplicates, and outliers
-            df.dropna(inplace=True)  # Remove missing values
-            df.drop_duplicates(inplace=True)  # Remove duplicates
-            
-            # Remove outliers using a simple Z-score approach
-            z_scores = (df['Quantity'] - df['Quantity'].mean()) / df['Quantity'].std()
-            df = df[(z_scores < 3) & (z_scores > -3)]
-
-            # Generate insights and visualizations
-            # Example 1: Calculate total sales by month and plot as a bar chart
-            df['Date'] = pd.to_datetime(df['Purchase_date'], format='%m/%d/%Y')
-            df['Month'] = df['Date'].dt.month
-            monthly_sales = df.groupby('Month')['Quantity'].sum()
-            fig1, ax1 = plt.subplots()
-            monthly_sales.plot(kind='bar', title='Total Sales by Month', ax=ax1)
-            fig1.savefig('static/bar_chart.png')
-
-            # Example 2: Calculate average sales by product category and plot as a pie chart
-            category_sales = df.groupby('Product_category')['Quantity'].mean()
-            fig2, ax2 = plt.subplots()
-            category_sales.plot(kind='pie', title='Average Sales by Category', ax=ax2)
-            fig2.savefig('static/pie_chart.png')
+            # Rest of the data processing and visualization code
 
             # Pass the data to the display page
             columns = df.columns.tolist()
@@ -75,7 +53,12 @@ def upload():
 
             return render_template('display.html', columns=columns, data=data, bar_chart_path=bar_chart_path, pie_chart_path=pie_chart_path)
 
-    return 'Error: no file uploaded'
+        # Return the error message if no file is uploaded
+        return render_template('upload.html', error='Error: no file uploaded')
+
+
+
+
 
 def generate_product_id():
     id_prefix = str(random.randint(1000, 9999))
@@ -116,4 +99,4 @@ def products():
     return render_template('liproducts.html',  product_list=product_list)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='192.168.43.52',port=5000)
