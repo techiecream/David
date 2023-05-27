@@ -63,13 +63,19 @@ def upload():
             plt.style.use('fivethirtyeight')
             plt.figure(figsize=(13, 7))
             sns.distplot(df['Quantity'], bins=25)
+            plt.savefig('distplot.png')
+            
 
             # distribution of numeric variables
             sns.countplot(df['Product_name'])
+            plt.savefig('product_count.png')
 
             sns.countplot(df['Quantity'])
+            plt.savefig('quantity_count.png')
+            
 
             sns.countplot(df['Sales_per_week'])
+            plt.savefig('sales_person_count.png')
 
             sns.countplot(df['Sales_person'])
 
@@ -127,8 +133,6 @@ def upload():
             df.to_csv('submission.csv', index=False)
 
 
-            # Return the results and visualizations
-            return render_template('display.html')
 
         # Return the error message if no file is uploaded
         return render_template('upload.html', error='Error: no file uploaded')
