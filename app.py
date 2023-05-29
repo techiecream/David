@@ -47,6 +47,13 @@ def upload():
             print("File " + uploaded_file.filename + " uploaded successfully")
             # Load the CSV file into a Pandas DataFrame
             df = pd.read_csv(uploaded_file.filename, encoding='utf-8')
+            
+            # Clean the data by removing non-ascii characters, missing values, duplicates, and outliers
+            df.dropna(inplace=True)  # Remove missing values
+            df.drop_duplicates(inplace=True)  # Remove duplicates
+
+            # Remove non-ascii characters from column names
+            df.columns = df.columns.str.encode('ascii', 'ignore').str.decode('ascii')
 
             #df = pd.read_csv('data.csv')
             df.head()
@@ -67,19 +74,12 @@ def upload():
             
 
             # distribution of numeric variables
-            sns.countplot(df['Product_name'])
-            plt.savefig('product_count.png')
 
             sns.countplot(df['Quantity'])
             plt.savefig('quantity_count.png')
             
-
-            sns.countplot(df['Sales_per_week'])
-            plt.savefig('sales_person_count.png')
-
-            sns.countplot(df['Sales_person'])
-
             sns.countplot(df['Purchase_date'])
+            plt.savefig('product_count.png')
 
             # check for null values
             df.isnull().sum()
